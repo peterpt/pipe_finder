@@ -2,9 +2,9 @@
 Automated script to search in SMB protocol for availables pipe names
 
 * Screenshots
-<img src="https://s2.postimg.org/ceu9nan09/help.jpg" width="55%"></img>
+- <img src="https://s2.postimg.org/ceu9nan09/help.jpg" width="55%"></img>
 
-<img src="https://s2.postimg.org/spudjjuc9/install.jpg" width="25%"></img><img src="https://s2.postimg.org/9ysg8vrwp/ipscan.jpg" width="25%"></img><img src="https://s2.postimg.org/k8uv85cnd/listscan.jpg"></img>
+- <img src="https://s2.postimg.org/spudjjuc9/install.jpg" width="25%"></img><img src="https://s2.postimg.org/9ysg8vrwp/ipscan.jpg" width="25%"></img><img src="https://s2.postimg.org/k8uv85cnd/listscan.jpg" width="25%"></img>
 
 * Requirements
 - metasploit-framework
