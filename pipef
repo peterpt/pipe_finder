@@ -112,7 +112,7 @@ if [[ -z "$pipe" ]]
 then
 echo -e "$yellow""No pipe names found on $ip scan"
 else
-echo -e "$orange""Pipes found in $ip""$green"
+echo -e "$orange""Pipes found in$green $ip""$white"
 echo $pipe
 if [[ ! -z "$out" ]]
 then
@@ -126,7 +126,6 @@ echo -e "$green""Finished"
 exit 1
 }
 chklog(){
-echo -e "$white" ""
 PID=$(cat $path/pid.tmp)
 ps --pid "$PID" &>/dev/null
 pd="$?"
@@ -160,6 +159,7 @@ sleep 1
 chklog
 else
 echo "$pipe"
+echo ""
 if [[ ! -z "$out" ]]
 then
 echo "$pipe" >> "$out"
@@ -181,6 +181,7 @@ echo "quit -y" >> $path/msf.rc
 tm="0"
 ot=""
 pipe=""
+echo -e "$white"
 msfconsole -r $path/msf.rc >/dev/null 2>&1 & echo $! > $path/pid.tmp & chklog
 }
 
