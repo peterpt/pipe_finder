@@ -40,6 +40,13 @@ echo ""
 echo -e "$yellow" "Try : apt-get install metasploit-framework"
 exit 1
 fi  
+which wget > /dev/null 2>&1
+      if [ "$?" -eq "1" ]; then
+   echo -e "$red" "Wget Missing"
+echo ""
+echo -e "$yellow" "Try : apt-get install wget"
+exit 1
+fi  
 }
 logo (){
 vrs="1.0"
@@ -61,6 +68,7 @@ if [[ -z "$msfloc" ]]
 then
 echo -e "$yellow""Unable to find metasploit folder"
 exit 1
+fi
 else
 if [[ ! -f "$msfloc/pipe_audit_v2.rb" ]]
 then
@@ -89,7 +97,6 @@ echo -e "$yellow""Invalid choice"
 exit 1
 ;;
 esac
-fi
 fi
 fi
 }
@@ -197,11 +204,13 @@ echo ""
 echo "-i 192.168.1.34 (check for pipe names on specific ip)"
 echo "-es (check Eternal Scanner ip list (case exists) for pipe names )"
 echo "-o (creates an output file)"
+echo "-u (Update Pipe Finder binary & Pipe Audit V2 Module)"
 echo "-h (This screen)"
 echo ""
 echo "Example : pipef -i 192.168.1.20 -o /ipipes.txt"
 exit 1
 }
+
 if [ -z "$1" ]
 then
 chkdep
@@ -211,6 +220,61 @@ ipi
 scan
 fi
 
+if [ "$1" == "-u" ]
+then
+pfs=$(whereis pipef |awk '{print$2}')
+pfp="$path/pipf"
+if [ -z "$pfs" ]
+then
+if [ -f "$pfp" ]
+then
+rm -f $pfp >/dev/null 2>&1
+wget https://raw.githubusercontent.com/peterpt/pipe_finder/master/pipef -O $pfp > /dev/null 2>&1
+echo ""
+echo -e "$green""Pipe Finder binary updated succefully from github to"
+echo -e "$yellow" "$pfp"
+fi
+else
+rm -f $pfs >/dev/null 2>&1
+wget https://raw.githubusercontent.com/peterpt/pipe_finder/master/pipef -O $pfs > /dev/null 2>&1
+echo ""
+echo -e "$green""Pipe Finder binary updated succefully from github to"
+echo -e "$orange" "$pfs"
+fi
+echo ""
+echo -e "$green""Updating pipe audit v2 module"
+echo ""
+msfloc=$(locate metasploit-framework/modules/auxiliary/scanner/smb | sed -n 1p )
+if [[ -z "$msfloc" ]]
+then
+msfloc=$(locate metasploit-framework/embedded/framework/modules/auxiliary/scanner/smb | sed -n 1p )
+if [[ -z "$msfloc" ]]
+then
+echo -e "$yellow""Unable to find metasploit folder"
+exit 1
+fi
+else
+if [[ ! -f "$msfloc/pipe_audit_v2.rb" ]]
+then
+echo -e "$yellow""This module was never installed , make sure you run (pipef) first"
+echo -e "$yellow""before using (pipef -u) ."
+exit 1
+else
+rm -f $msfloc/pipe_audit_v2.rb >/dev/null 2>&1
+wget https://raw.githubusercontent.com/peterpt/pipe_auditor_fb/master/pipe_audit_v2.rb -O $msfloc/pipe_audit_v2.rb > /dev/null 2>&1
+if [[ ! -f "$msfloc/pipe_audit_v2.rb" ]]
+then
+echo -e "$yellow""There was a problem updating this module"
+exit 1
+else
+echo -e "$green""Module Updated Succefully succefully to"
+echo -e "$orange""$msfloc/pipe_audit_v2.rb"
+echo ""
+echo -e "$yellow""Done"
+fi
+fi
+fi
+fi
 if [ "$1" == "-h" ]
 then
 help
