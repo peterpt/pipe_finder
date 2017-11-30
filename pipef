@@ -56,6 +56,9 @@ minstall(){
 msfloc=$(locate metasploit-framework/modules/auxiliary/scanner/smb | sed -n 1p )
 if [[ -z "$msfloc" ]]
 then
+msfloc=$(locate metasploit-framework/embedded/framework/modules/auxiliary/scanner/smb | sed -n 1p )
+if [[ -z "$msfloc" ]]
+then
 echo -e "$yellow""Unable to find metasploit folder"
 exit 1
 else
@@ -86,6 +89,7 @@ echo -e "$yellow""Invalid choice"
 exit 1
 ;;
 esac
+fi
 fi
 fi
 }
