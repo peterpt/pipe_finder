@@ -9,8 +9,12 @@ Automated script to search in SMB protocol for availables pipe names
 # Requirements
 - metasploit-framework
 - wget
+- locate
 - pipe_audit_v2.rb module (https://github.com/peterpt/pipe_auditor_fb) - It will be installed on first run
 
+# Install Requirements
+- apt-get install metasploit-framework wget locate && updatedb
+- (updatedb is only needed to cache the "locate" search database in order to get metasploit-framework directory)
 # How to Run
 
 - git clone https://github.com/peterpt/pipe_finder.git
