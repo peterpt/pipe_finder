@@ -150,7 +150,7 @@ rm -f pid.tmp >/dev/null 2>&1
 rm -f tmp.txt >/dev/null 2>&1
 exit 1
 fi
-if [[ "$tm" == "20" ]]
+if [[ "$tm" == "120" ]]
 then
 kill -9 $PID
 echo -e "$yellow""No msflog generated"
@@ -162,7 +162,7 @@ sleep 1
 tm=$((tm+1))
 chklog
 fi
-tm="19"
+tm="119"
 pipe=$(cat msfout.log | grep "Pipes" | tail -1 | sed -e "s/:445//g" | awk '{$1=$3=""; print $0}')
 if [[ "$pipe" == "$ot" ]]
 then
