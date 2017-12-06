@@ -238,6 +238,7 @@ fi
 else
 rm -f $pfs >/dev/null 2>&1
 wget https://raw.githubusercontent.com/peterpt/pipe_finder/master/pipef -O $pfs > /dev/null 2>&1
+chmod +x $pfs >/dev/null 2>&1
 echo ""
 echo -e "$green""Pipe Finder binary updated succefully from github to"
 echo -e "$orange" "$pfs"
