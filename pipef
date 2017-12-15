@@ -3,16 +3,21 @@
 # Script Denveloped by peterpt
 # http://github.com/peterpt
 
+#Colours Setup
 green='\033[92m'
 yellow='\e[0;33m'
 orange='\e[38;5;166m'
 white='\e[0;49;37m'
 
 path=$(pwd)
+
+# Temporary files
 rm -f $path/msf.rc >/dev/null 2>&1
 rm -f $path/msfout.log >/dev/null 2>&1
 rm -f $path/pid.tmp >/dev/null 2>&1
 rm -f $path/tmp.txt >/dev/null 2>&1
+
+#Interrupt for metasploit
 trap ctrl_c INT
 function ctrl_c() {
 if [[ -f "$path/pid.tmp" ]]
@@ -32,6 +37,8 @@ else
 exit 1
 fi
 }
+
+#Dependecies check
 chkdep() {
 which msfconsole > /dev/null 2>&1
       if [ "$?" -eq "1" ]; then
@@ -60,9 +67,12 @@ echo -e "$green""         |_|                                              $yell
 echo -e "$orange""Denveloped by : Peterpt (http://github.com/peterpt)"
 }
 minstall(){
+
+#Location1 for metasploit path
 msfloc=$(locate metasploit-framework/modules/auxiliary/scanner/smb | sed -n 1p )
 if [[ -z "$msfloc" ]]
 then
+#Location2 for metasploit framework
 msfloc=$(locate metasploit-framework/embedded/framework/modules/auxiliary/scanner/smb | sed -n 1p )
 if [[ -z "$msfloc" ]]
 then
@@ -70,6 +80,8 @@ echo -e "$yellow""Unable to find metasploit folder"
 exit 1
 fi
 else
+
+#Check if pipe audit ruby module exists
 if [[ ! -f "$msfloc/pipe_audit_v2.rb" ]]
 then
 echo -e "$yellow""Pipe Finder was unable to find pipe_audit_v2.rb module"
@@ -193,7 +205,7 @@ tm="0"
 ot=""
 pipe=""
 echo -e "$white"
-msfconsole -r $path/msf.rc >/dev/null 2>&1 & echo $! > $path/pid.tmp & chklog
+msfconsole -r $path/msf.rc >/dev/null 2>&1 & echo $! > "$path/pid.tmp" & chklog
 }
 
 help() {
